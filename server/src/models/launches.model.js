@@ -1,8 +1,6 @@
-//const launches = require("./launches.mongo");
+const launches = require("./launches.mongo");
 
-const launches = new Map();
-
-let latestFlightNumber = 100;
+/* let latestFlightNumber = 100;
 
 const launch = {
   flightNumber: 100,
@@ -23,9 +21,9 @@ function existsLaunchWithId(launchId) {
 
 function getAllLaunches() {
   return Array.from(launches.values());
-}
+} */
 
-function addNewLaunch(launch) {
+/* function addNewLaunch(launch) {
   latestFlightNumber++;
   launches.set(
     latestFlightNumber,
@@ -43,11 +41,23 @@ function abortLaunchById(launchId) {
   aborted.upcoming = false;
   aborted.success = false;
   return aborted;
+} */
+
+async function saveLaunch(launch) {
+  await launches.updateOne(
+    {
+      flightNumber: launch.flightNumber,
+    },
+    launch,
+    { upsert: true }
+  );
 }
 
 module.exports = {
+  /* 
   abortLaunchById,
   getAllLaunches,
   addNewLaunch,
-  existsLaunchWithId,
+  existsLaunchWithId, */
+  saveLaunch,
 };
