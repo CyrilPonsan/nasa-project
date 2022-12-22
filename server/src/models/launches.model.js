@@ -46,6 +46,10 @@ const launch = {
 
 saveLaunch(launch);
 
+async function getLatestFLightNumber() {
+  const latestLaunch = await launches.findOne().sort("flightNumber");
+}
+
 async function getAllLaunches() {
   return await launches.find({}, { _id: 0, __v: 0 });
 }
