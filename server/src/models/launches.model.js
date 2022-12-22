@@ -9,24 +9,11 @@ const DEFAULT_FLIGHT_NUMBER = 100;
 
 
 
-function existsLaunchWithId(launchId) {
-  return launches.has(launchId);
-}
+
 
 */
 
-/* function addNewLaunch(launch) {
-  latestFlightNumber++;
-  launches.set(
-    latestFlightNumber,
-    Object.assign(launch, {
-      customer: ["ZTM", "NASA"],
-      flightNumber: latestFlightNumber,
-      upcoming: true,
-      success: true,
-    })
-  );
-}
+/*
 
 function abortLaunchById(launchId) {
   const aborted = launches.get(launchId);
@@ -47,6 +34,12 @@ const launch = {
 };
 
 saveLaunch(launch);
+
+async function existsLaunchWithId(launchId) {
+  return await launches.findOne({
+    flightNumber: launchId,
+  });
+}
 
 async function scheduleNewLaunch(launch) {
   const newFlightNumber = (await getLatestFLightNumber()) + 1;
@@ -79,7 +72,7 @@ async function saveLaunch(launch) {
     throw new Error("No matching planet found!");
   }
 
-  await launches.updateOne(
+  await launches.findOneAndUpdate(
     {
       flightNumber: launch.flightNumber,
     },
@@ -89,11 +82,6 @@ async function saveLaunch(launch) {
 }
 
 module.exports = {
-  /* 
-  abortLaunchById,
-  getAllLaunches,
-  addNewLaunch,
-  existsLaunchWithId, */
   scheduleNewLaunch,
   saveLaunch,
   getAllLaunches,
