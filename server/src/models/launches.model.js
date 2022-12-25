@@ -3,24 +3,15 @@ const planets = require("./planets.mongo.db");
 
 const DEFAULT_FLIGHT_NUMBER = 100;
 
-/* let latestFlightNumber = 100;
-
-
-
-
-
-
-
-*/
-
-/*
-
-function abortLaunchById(launchId) {
-  const aborted = launches.get(launchId);
-  aborted.upcoming = false;
-  aborted.success = false;
-  return aborted;
-} */
+async function abortLaunchById(launchId) {
+  const aborted = await launches.updateOne(
+    {
+      flightNumber: launchId,
+    },
+    { upcoming: false, success: false }
+  );
+  return aborted.modifiedCount === 1;
+}
 
 const launch = {
   flightNumber: 100,
@@ -82,6 +73,8 @@ async function saveLaunch(launch) {
 }
 
 module.exports = {
+  existsLaunchWithId,
+  abortLaunchById,
   scheduleNewLaunch,
   saveLaunch,
   getAllLaunches,
