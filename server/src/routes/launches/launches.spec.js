@@ -10,7 +10,7 @@ describe("Launches API", () => {
   describe("Test GET /launches", () => {
     test("it should respond with 200 success", async () => {
       const response = await request(app)
-        .get("/launches")
+        .get("/v1/launches")
         .expect("Content-Type", /json/)
         .expect(200);
     });
@@ -19,13 +19,13 @@ describe("Launches API", () => {
   describe("Test DELETE /launches", () => {
     test("It should respond with 200 success", async () => {
       const response = await request(app)
-        .delete("/launches/100")
+        .delete("/v1/launches/100")
         .expect("Content-Type", /json/)
         .expect(200);
     });
     test("It should respond with 404 success", async () => {
       const response = await request(app)
-        .delete("/launches/1000")
+        .delete("/v1/launches/1000")
         .expect("Content-Type", /json/)
         .expect(404);
     });
@@ -47,7 +47,7 @@ describe("Launches API", () => {
 
     test("it should respond with 201 success", async () => {
       const response = await request(app)
-        .post("/launches")
+        .post("/v1/launches")
         .send(completeLaunchData)
         .expect("Content-Type", /json/)
         .expect(201);
@@ -61,7 +61,7 @@ describe("Launches API", () => {
 
     test("it should catch missing required properties", async () => {
       const response = await request(app)
-        .post("/launches")
+        .post("/v1/launches")
         .send({
           //mission: "uss enterprise",
           rocket: "toto rocket",
@@ -77,7 +77,7 @@ describe("Launches API", () => {
 
     test("it shoild also catch invalid date", async () => {
       const response = await request(app)
-        .post("/launches")
+        .post("/v1/launches")
         .send({
           mission: "uss enterprise",
           rocket: "toto rocket",
